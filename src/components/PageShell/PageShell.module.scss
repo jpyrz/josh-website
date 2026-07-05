@@ -1,0 +1,38 @@
+.shell {
+  width: min(100% - 32px, var(--max-page-width));
+  margin: 0 auto;
+  padding: 56px 0 80px;
+}
+
+.home {
+  padding-top: 24px;
+}
+
+.centered {
+  text-align: center;
+
+  .header {
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.header {
+  max-width: 760px;
+  margin-bottom: 44px;
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2.4rem, 4vw, 4.8rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  p {
+    margin: 18px 0 0;
+    color: var(--color-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+}

@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/studio/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -12,10 +13,15 @@
 
 # testing
 /coverage
+/cypress/screenshots
+/cypress/videos
 
 # next.js
 /.next/
 /out/
+
+# sanity
+/studio/.sanity
 
 # production
 /build
@@ -32,6 +38,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel

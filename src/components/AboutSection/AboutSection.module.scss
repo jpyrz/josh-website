@@ -1,0 +1,43 @@
+.about {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 0.58fr);
+  gap: clamp(28px, 6vw, 72px);
+  align-items: start;
+}
+
+.portrait {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 11;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.copy {
+  max-width: 720px;
+
+  h2 {
+    margin: 0 0 18px;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  p {
+    margin: 0 0 20px;
+    color: var(--color-muted);
+    font-size: 1.03rem;
+    line-height: 1.8;
+  }
+}
+
+@media (max-width: 760px) {
+  .about {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait {
+    max-width: 420px;
+  }
+}

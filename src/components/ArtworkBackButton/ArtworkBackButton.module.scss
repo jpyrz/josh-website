@@ -1,0 +1,17 @@
+.button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-accent-strong);
+  font-weight: 700;
+  line-height: 1;
+
+  &::before {
+    content: "←";
+    margin-right: 8px;
+  }
+
+  &:hover {
+    color: var(--color-ink);
+  }
+}

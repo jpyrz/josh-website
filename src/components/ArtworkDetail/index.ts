@@ -1,0 +1,1 @@
+export { ArtworkDetail } from "./ArtworkDetail";

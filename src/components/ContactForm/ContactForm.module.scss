@@ -1,0 +1,29 @@
+.form {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.success,
+.error {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.success {
+  color: #2f6a4f;
+}
+
+.error {
+  color: #9a3d35;
+}

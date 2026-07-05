@@ -1,0 +1,30 @@
+.section {
+  padding-top: 28px;
+}
+
+.heading {
+  margin-bottom: 28px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  a {
+    color: var(--color-accent-strong);
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 560px) {
+  .heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

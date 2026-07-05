@@ -1,0 +1,27 @@
+.meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  color: var(--color-muted);
+  font-size: 0.94rem;
+  line-height: 1.5;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  div:not(:last-child)::after {
+    content: "";
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-line);
+  }
+
+  dd {
+    margin: 0;
+  }
+}
