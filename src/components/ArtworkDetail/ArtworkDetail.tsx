@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import type { CSSProperties, SyntheticEvent } from "react";
 import type { Artwork } from "@/lib/types";
 import { ArtworkBackButton } from "@/components/ArtworkBackButton";
 import { ArtworkMeta } from "@/components/ArtworkMeta";
@@ -16,10 +18,13 @@ export function ArtworkDetail({ artwork }: ArtworkDetailProps) {
     width: displayWidth ? `${displayWidth}px` : undefined,
     maxHeight: displayMaxHeight ? `${displayMaxHeight}px` : undefined,
   };
+  const blockImageSave = (event: SyntheticEvent) => {
+    event.preventDefault();
+  };
 
   return (
     <article className={styles.detail}>
-      <div className={styles.imageWrap}>
+      <div className={styles.imageWrap} onContextMenu={blockImageSave} onDragStart={blockImageSave}>
         <Image
           src={artwork.image.src}
           alt={artwork.image.alt}
@@ -29,6 +34,7 @@ export function ArtworkDetail({ artwork }: ArtworkDetailProps) {
           sizes="(min-width: 1180px) 760px, 100vw"
           className={styles.image}
           style={imageStyle}
+          draggable={false}
         />
       </div>
       <div className={styles.content}>

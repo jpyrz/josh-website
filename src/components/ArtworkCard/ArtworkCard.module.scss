@@ -8,6 +8,8 @@
   overflow: hidden;
   background: var(--color-surface);
   border: 1px solid var(--color-line);
+  -webkit-touch-callout: none;
+  user-select: none;
 }
 
 .image {
@@ -16,6 +18,8 @@
   height: auto;
   object-fit: contain;
   transition: transform 220ms ease;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .card:hover .image {

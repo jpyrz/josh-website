@@ -23,4 +23,10 @@ describe("ArtworkDetail", () => {
 
     cy.findByRole("img", { name: fallbackArtwork[0].image.alt }).should("have.attr", "style").and("include", "240px");
   });
+
+  it("marks the artwork image as not draggable", () => {
+    cy.mount(<ArtworkDetail artwork={fallbackArtwork[0]} />);
+
+    cy.findByRole("img", { name: fallbackArtwork[0].image.alt }).should("have.attr", "draggable", "false");
+  });
 });

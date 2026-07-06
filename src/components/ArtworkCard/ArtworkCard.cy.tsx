@@ -34,4 +34,11 @@ describe("ArtworkCard", () => {
 
     cy.findByRole("article").should("have.attr", "style").and("include", "width: 100%");
   });
+
+  it("blocks the artwork image context menu", () => {
+    cy.mount(<ArtworkCard artwork={fallbackArtwork[0]} />);
+
+    cy.findByRole("link", { name: `View ${fallbackArtwork[0].title}` }).trigger("contextmenu");
+    cy.findByRole("img", { name: fallbackArtwork[0].image.alt }).should("have.attr", "draggable", "false");
+  });
 });
