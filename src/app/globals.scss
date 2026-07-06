@@ -6,7 +6,8 @@
   --color-line: #ddd6c8;
   --color-accent: #546a76;
   --color-accent-strong: #2f4858;
-  --font-body: Arial, Helvetica, sans-serif;
+  --font-body: var(--font-inter), Arial, Helvetica, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --max-page-width: 1180px;
 }
 
@@ -36,6 +37,12 @@ button,
 input,
 textarea {
   font: inherit;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
 }
 
 a {
