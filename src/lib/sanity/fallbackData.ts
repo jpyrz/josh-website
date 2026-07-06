@@ -104,7 +104,6 @@ export const fallbackSiteSettings: SiteSettings = {
 
 export const fallbackHomePageSettings: HomePageSettings = {
   eyebrowText: "Artwork Portfolio",
-  primaryLinkLabel: "View gallery",
-  secondaryLinkLabel: "About the artist",
+  secondaryLinkLabel: "Read more",
   showFeaturedArtwork: true,
 };

@@ -17,8 +17,39 @@
   }
 
   a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42em;
     color: var(--color-accent-strong);
     font-weight: 700;
+
+    &:hover,
+    &:focus-visible {
+      .arrow {
+        transform: translateX(3px);
+      }
+    }
+  }
+}
+
+.arrow {
+  position: relative;
+  width: 1.15em;
+  height: 1px;
+  flex: 0 0 auto;
+  background: currentcolor;
+  transition: transform 180ms ease;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 0.36em;
+    height: 0.36em;
+    border-top: 1px solid currentcolor;
+    border-right: 1px solid currentcolor;
+    transform: translateY(-50%) rotate(45deg);
   }
 }
 

@@ -6,6 +6,6 @@ describe("FeaturedArtwork", () => {
     cy.mount(<FeaturedArtwork artwork={fallbackArtwork.slice(0, 2)} />);
 
     cy.findByRole("heading", { name: "Featured Work" }).should("be.visible");
-    cy.findByRole("link", { name: "All artwork" }).should("have.attr", "href", "/gallery");
+    cy.findByRole("link", { name: "View gallery" }).should("have.attr", "href", "/gallery");
   });
 });

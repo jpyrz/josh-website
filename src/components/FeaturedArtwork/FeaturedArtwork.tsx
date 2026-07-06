@@ -12,7 +12,10 @@ export function FeaturedArtwork({ artwork }: FeaturedArtworkProps) {
     <section className={styles.section}>
       <div className={styles.heading}>
         <h2>Featured Work</h2>
-        <Link href="/gallery">All artwork</Link>
+        <Link href="/gallery">
+          View gallery
+          <span className={styles.arrow} aria-hidden="true" />
+        </Link>
       </div>
       <ArtworkGrid artwork={artwork} />
     </section>

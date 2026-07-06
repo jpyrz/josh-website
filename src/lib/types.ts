@@ -60,7 +60,6 @@ export type HomePageSettings = {
   eyebrowText?: string;
   headline?: string;
   intro?: string;
-  primaryLinkLabel?: string;
   secondaryLinkLabel?: string;
   showFeaturedArtwork?: boolean;
 };

@@ -25,16 +25,11 @@ export const homePageSettings = defineType({
       description: "Optional. Leave blank to use the artist statement from Artist Profile.",
     }),
     defineField({
-      name: "primaryLinkLabel",
-      title: "Primary link label",
-      type: "string",
-      initialValue: "View gallery",
-    }),
-    defineField({
       name: "secondaryLinkLabel",
-      title: "Secondary link label",
+      title: "Read more link label",
       type: "string",
-      initialValue: "About the artist",
+      initialValue: "Read more",
+      description: "Shown inline after the homepage intro text and links to the About page.",
     }),
     defineField({
       name: "showFeaturedArtwork",

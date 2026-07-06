@@ -19,7 +19,6 @@ export default async function Home() {
         kicker={homePage.eyebrowText}
         headline={homePage.headline}
         intro={homePage.intro}
-        primaryLinkLabel={homePage.primaryLinkLabel}
         secondaryLinkLabel={homePage.secondaryLinkLabel}
       />
       {homePage.showFeaturedArtwork && <FeaturedArtwork artwork={artwork} />}

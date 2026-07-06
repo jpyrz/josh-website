@@ -34,6 +34,7 @@ type SanitySiteSettings = Omit<SiteSettings, "brandLogo"> & {
 
 type SanityArtistProfile = Omit<ArtistProfile, "socialLinks"> & {
   socialLinks?: ArtistProfile["socialLinks"] | null;
+  portrait?: SanityImage;
 };
 
 function normalizeSocialLinks(
@@ -187,6 +188,18 @@ export async function getArtistProfile(): Promise<ArtistProfile> {
     name,
     bio,
     statement,
+    portrait{
+      ...,
+      asset->{
+        _id,
+        metadata {
+          dimensions {
+            width,
+            height
+          }
+        }
+      }
+    },
     email,
     socialLinks
   }`);
@@ -195,6 +208,7 @@ export async function getArtistProfile(): Promise<ArtistProfile> {
     ? {
         ...fallbackArtistProfile,
         ...data,
+        portrait: mapImage(data.portrait, `${data.name || fallbackArtistProfile.name} portrait`),
         socialLinks: normalizeSocialLinks(data.socialLinks),
       }
     : fallbackArtistProfile;
@@ -241,7 +255,6 @@ export async function getHomePageSettings(): Promise<HomePageSettings> {
     eyebrowText,
     headline,
     intro,
-    primaryLinkLabel,
     secondaryLinkLabel,
     showFeaturedArtwork
   }`);

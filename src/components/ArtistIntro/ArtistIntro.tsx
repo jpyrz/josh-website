@@ -7,7 +7,6 @@ type ArtistIntroProps = {
   kicker?: string;
   headline?: string;
   intro?: string;
-  primaryLinkLabel?: string;
   secondaryLinkLabel?: string;
 };
 
@@ -16,18 +15,22 @@ export function ArtistIntro({
   kicker = "Artwork Portfolio",
   headline,
   intro,
-  primaryLinkLabel = "View gallery",
-  secondaryLinkLabel = "About the artist",
+  secondaryLinkLabel = "Read more",
 }: ArtistIntroProps) {
+  const introText = intro || artist.statement || artist.bio;
+  const readMoreLabel = secondaryLinkLabel.replace(/\s*(?:->|→)\s*$/, "");
+
   return (
     <section className={styles.intro}>
       <p className={styles.kicker}>{kicker}</p>
       <h1>{headline || artist.name}</h1>
-      <p>{intro || artist.statement || artist.bio}</p>
-      <div className={styles.actions}>
-        <Link href="/gallery">{primaryLinkLabel}</Link>
-        <Link href="/about">{secondaryLinkLabel}</Link>
-      </div>
+      <p>
+        {introText}{" "}
+        <Link href="/about" className={styles.readMore}>
+          {readMoreLabel}
+          <span className={styles.arrow} aria-hidden="true" />
+        </Link>
+      </p>
     </section>
   );
 }
