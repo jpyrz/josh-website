@@ -105,6 +105,8 @@
     align-items: stretch;
     gap: 0;
     font-size: 0.9rem;
+    margin-top: 0;
+    padding-top: 0;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
@@ -112,7 +114,9 @@
     transition:
       max-height 220ms ease,
       opacity 180ms ease,
-      transform 180ms ease;
+      transform 180ms ease,
+      margin-top 180ms ease,
+      padding-top 180ms ease;
 
     a {
       display: block;
@@ -122,6 +126,8 @@
   }
 
   .navOpen {
+    margin-top: 14px;
+    padding-top: 2px;
     max-height: 240px;
     opacity: 1;
     transform: translateY(0);
