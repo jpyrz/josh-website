@@ -25,6 +25,7 @@ export default async function Home() {
             ? homePage.heroArtworks || (homePage.heroArtwork ? [homePage.heroArtwork] : artwork.slice(0, 3))
             : undefined
         }
+        heroCarouselIntervalSeconds={homePage.heroCarouselIntervalSeconds}
       />
       {homePage.showFeaturedArtwork && <FeaturedArtwork artwork={artwork} />}
     </PageShell>

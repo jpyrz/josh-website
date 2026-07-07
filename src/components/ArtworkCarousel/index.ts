@@ -1,0 +1,1 @@
+export { ArtworkCarousel } from "./ArtworkCarousel";

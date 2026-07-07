@@ -1,0 +1,99 @@
+.carousel {
+  --carousel-stage-height: clamp(360px, 54vw, 640px);
+
+  width: 100%;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+.stage {
+  position: relative;
+  width: 100%;
+  height: var(--carousel-stage-height);
+  color: inherit;
+}
+
+.slide {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(100%, calc(var(--carousel-stage-height) * var(--carousel-image-ratio)));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 520ms ease,
+    transform 180ms ease;
+}
+
+.activeSlide {
+  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(32, 29, 24, 0.16);
+  background: var(--color-surface);
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.activeSlide:hover,
+.activeSlide:focus-visible {
+  .image {
+    border-color: rgba(32, 29, 24, 0.28);
+    transform: translateY(-1px);
+  }
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dot {
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 1px solid rgba(111, 106, 98, 0.48);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.activeDot {
+  border-color: rgba(47, 72, 88, 0.62);
+  background: rgba(47, 72, 88, 0.62);
+  transform: scale(1.12);
+}
+
+@media (max-width: 820px) {
+  .carousel {
+    --carousel-stage-height: clamp(320px, 58vw, 420px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .image,
+  .dot {
+    transition: none;
+  }
+}

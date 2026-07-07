@@ -34,54 +34,10 @@
   }
 }
 
-.artworkGroup {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(var(--hero-count, 1), minmax(0, 1fr));
-  gap: clamp(14px, 2vw, 24px);
-  align-items: center;
+.carousel {
   justify-self: end;
-
-  &[data-count="1"] {
-    --hero-count: 1;
-    max-width: min(100%, 760px);
-  }
-
-  &[data-count="2"] {
-    --hero-count: 2;
-    max-width: min(100%, 900px);
-  }
-
-  &[data-count="3"] {
-    --hero-count: 3;
-    max-width: min(100%, 1000px);
-  }
-}
-
-.artworkLink {
-  display: block;
-  justify-self: center;
   width: 100%;
-  color: inherit;
-}
-
-.artworkImage {
-  display: block;
-  width: 100%;
-  height: auto;
-  border: 1px solid rgba(32, 29, 24, 0.16);
-  background: var(--color-surface);
-  transition:
-    border-color 180ms ease,
-    transform 180ms ease;
-}
-
-.artworkLink:hover,
-.artworkLink:focus-visible {
-  .artworkImage {
-    border-color: rgba(32, 29, 24, 0.28);
-    transform: translateY(-1px);
-  }
+  max-width: min(100%, 760px);
 }
 
 .kicker {
@@ -128,19 +84,9 @@
     }
   }
 
-  .artworkGroup {
+  .carousel {
     width: min(86vw, 420px);
     max-width: none;
-    grid-template-columns: 1fr;
-    justify-self: start;
-  }
-
-  .artworkGroup .artworkLink:not(:first-child) {
-    display: none;
-  }
-
-  .artworkLink {
-    width: 100%;
     justify-self: start;
   }
 }

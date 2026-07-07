@@ -64,6 +64,7 @@ export type HomePageSettings = {
   showHeroArtwork?: boolean;
   heroArtwork?: Artwork;
   heroArtworks?: Artwork[];
+  heroCarouselIntervalSeconds?: number;
   showFeaturedArtwork?: boolean;
 };
 

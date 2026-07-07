@@ -106,6 +106,7 @@ export const fallbackHomePageSettings: HomePageSettings = {
   eyebrowText: "Artwork Portfolio",
   secondaryLinkLabel: "Read more",
   showHeroArtwork: true,
+  heroCarouselIntervalSeconds: 6,
   showFeaturedArtwork: true,
 };
 

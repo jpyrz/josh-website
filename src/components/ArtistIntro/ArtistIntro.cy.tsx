@@ -38,13 +38,20 @@ describe("ArtistIntro", () => {
     cy.findByRole("img", { name: fallbackArtwork[0].image.alt }).should("be.visible");
   });
 
-  it("renders an optional hero artwork group", () => {
+  it("renders optional hero artworks in a carousel", () => {
     cy.viewport(1200, 800);
     cy.mount(<ArtistIntro artist={fallbackArtistProfile} heroArtworks={fallbackArtwork.slice(0, 3)} />);
 
-    fallbackArtwork.slice(0, 3).forEach((artwork) => {
-      cy.findByRole("link", { name: `View ${artwork.title}` }).should("have.attr", "href", `/artwork/${artwork.slug}`);
-      cy.findByRole("img", { name: artwork.image.alt }).should("be.visible");
-    });
+    cy.findByRole("link", { name: `View ${fallbackArtwork[0].title}` }).should(
+      "have.attr",
+      "href",
+      `/artwork/${fallbackArtwork[0].slug}`,
+    );
+    cy.findByRole("button", { name: `Show ${fallbackArtwork[1].title}` }).click();
+    cy.findByRole("link", { name: `View ${fallbackArtwork[1].title}` }).should(
+      "have.attr",
+      "href",
+      `/artwork/${fallbackArtwork[1].slug}`,
+    );
   });
 });

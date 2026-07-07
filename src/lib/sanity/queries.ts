@@ -269,6 +269,7 @@ export async function getHomePageSettings(): Promise<HomePageSettings> {
     showHeroArtwork,
     heroArtworks[]->${artworkProjection},
     heroArtwork->${artworkProjection},
+    heroCarouselIntervalSeconds,
     showFeaturedArtwork
   }`);
 
@@ -278,7 +279,7 @@ export async function getHomePageSettings(): Promise<HomePageSettings> {
 
   const { heroArtwork, heroArtworks, ...settings } = data;
   const mappedHeroArtworks = Array.isArray(heroArtworks)
-    ? heroArtworks.map(mapArtwork).filter((piece): piece is Artwork => Boolean(piece)).slice(0, 3)
+    ? heroArtworks.map(mapArtwork).filter((piece): piece is Artwork => Boolean(piece))
     : [];
   const mappedHeroArtwork = heroArtwork ? mapArtwork(heroArtwork) || undefined : undefined;
 
@@ -287,6 +288,8 @@ export async function getHomePageSettings(): Promise<HomePageSettings> {
     ...settings,
     heroArtwork: mappedHeroArtwork,
     heroArtworks: mappedHeroArtworks.length ? mappedHeroArtworks : mappedHeroArtwork ? [mappedHeroArtwork] : undefined,
+    heroCarouselIntervalSeconds:
+      settings.heroCarouselIntervalSeconds ?? fallbackHomePageSettings.heroCarouselIntervalSeconds,
     showHeroArtwork: settings.showHeroArtwork ?? fallbackHomePageSettings.showHeroArtwork,
     showFeaturedArtwork: settings.showFeaturedArtwork ?? fallbackHomePageSettings.showFeaturedArtwork,
   };

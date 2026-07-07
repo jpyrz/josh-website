@@ -43,8 +43,16 @@ export const homePageSettings = defineType({
       title: "Hero artworks",
       type: "array",
       of: [{ type: "reference", to: [{ type: "artwork" }] }],
-      description: "Choose one to three artworks for the homepage hero. Three creates a triptych-style layout.",
-      validation: (rule) => rule.max(3),
+      description: "Choose artworks for the homepage hero carousel. Leave blank to use featured artwork.",
+      hidden: ({ parent }) => parent?.showHeroArtwork === false,
+    }),
+    defineField({
+      name: "heroCarouselIntervalSeconds",
+      title: "Hero carousel interval",
+      type: "number",
+      initialValue: 6,
+      description: "Seconds between automatic image changes. Set to 0 to disable auto-rotation.",
+      validation: (rule) => rule.min(0).max(30),
       hidden: ({ parent }) => parent?.showHeroArtwork === false,
     }),
     defineField({

@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ArtistProfile, Artwork } from "@/lib/types";
+import { ArtworkCarousel } from "@/components/ArtworkCarousel";
 import styles from "./ArtistIntro.module.scss";
 
 type ArtistIntroProps = {
@@ -11,6 +11,7 @@ type ArtistIntroProps = {
   secondaryLinkLabel?: string;
   heroArtwork?: Artwork;
   heroArtworks?: Artwork[];
+  heroCarouselIntervalSeconds?: number;
 };
 
 export function ArtistIntro({
@@ -21,10 +22,11 @@ export function ArtistIntro({
   secondaryLinkLabel = "Read more",
   heroArtwork,
   heroArtworks,
+  heroCarouselIntervalSeconds = 6,
 }: ArtistIntroProps) {
   const introText = intro || artist.statement || artist.bio;
   const readMoreLabel = secondaryLinkLabel.replace(/\s*(?:->|→)\s*$/, "");
-  const artworks = (heroArtworks?.length ? heroArtworks : heroArtwork ? [heroArtwork] : []).slice(0, 3);
+  const artworks = heroArtworks?.length ? heroArtworks : heroArtwork ? [heroArtwork] : [];
 
   return (
     <section className={`${styles.intro} ${artworks.length ? styles.withArtwork : ""}`}>
@@ -40,26 +42,12 @@ export function ArtistIntro({
         </p>
       </div>
       {artworks.length > 0 && (
-        <div className={styles.artworkGroup} data-count={artworks.length}>
-          {artworks.map((artwork) => (
-            <Link
-              key={artwork.id}
-              href={`/artwork/${artwork.slug}`}
-              className={styles.artworkLink}
-              aria-label={`View ${artwork.title}`}
-            >
-              <Image
-                src={artwork.image.src}
-                alt={artwork.image.alt}
-                width={artwork.image.width || 900}
-                height={artwork.image.height || 1100}
-                sizes="(min-width: 960px) 26vw, 86vw"
-                className={styles.artworkImage}
-                priority
-              />
-            </Link>
-          ))}
-        </div>
+        <ArtworkCarousel
+          artwork={artworks}
+          autoRotateIntervalMs={heroCarouselIntervalSeconds * 1000}
+          className={styles.carousel}
+          priority
+        />
       )}
     </section>
   );
