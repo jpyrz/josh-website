@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ArtworkGrid } from "@/components/ArtworkGrid";
+import { PageIntro } from "@/components/PageIntro";
 import { PageShell } from "@/components/PageShell";
 import { getAllArtwork } from "@/lib/sanity/queries";
 
@@ -14,7 +15,12 @@ export default async function GalleryPage() {
   const artwork = await getAllArtwork();
 
   return (
-    <PageShell heading="Gallery" intro="A quiet index of selected pieces, studies, and available work.">
+    <PageShell>
+      <PageIntro
+        kicker="Selected Work"
+        heading="Gallery"
+        intro="A quiet index of selected pieces, studies, and available work."
+      />
       <ArtworkGrid artwork={artwork} />
     </PageShell>
   );

@@ -78,6 +78,12 @@ export const fallbackArtistProfile: ArtistProfile = {
   bio: "Josh is a visual artist building a body of work across painting, drawing, and mixed media.",
   statement:
     "The work balances close observation with atmosphere, leaving room for texture, quiet color, and the trace of the hand.",
+  aboutKicker: "Artist Statement",
+  aboutDetails: [
+    { label: "Mediums", value: "Painting, drawing, mixed media" },
+    { label: "Focus", value: "Natural forms, fragmented spaces, imagined environments" },
+    { label: "Inquiries", value: "Available works and commissions" },
+  ],
   portrait: {
     src: "/artwork/study-in-blue.svg",
     alt: "Placeholder artist portrait",
@@ -113,7 +119,6 @@ export const fallbackHomePageSettings: HomePageSettings = {
 export const fallbackContactPageSettings: ContactPageSettings = {
   heading: "Contact",
   intro: "For commissions, available works, studio visits, or exhibition inquiries, send a note below.",
-  showImage: true,
-  showDirectEmail: true,
-  emailLinkLabel: "Email directly",
+  showImage: false,
+  showDirectEmail: false,
 };

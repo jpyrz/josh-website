@@ -198,6 +198,11 @@ export async function getArtistProfile(): Promise<ArtistProfile> {
     name,
     bio,
     statement,
+    aboutKicker,
+    aboutDetails[]{
+      label,
+      value
+    },
     portrait{
       ...,
       asset->{

@@ -36,6 +36,11 @@ export type ArtistProfile = {
   name: string;
   bio: string;
   statement?: string;
+  aboutKicker?: string;
+  aboutDetails?: {
+    label: string;
+    value: string;
+  }[];
   portrait?: ArtworkImage;
   email?: string;
   socialLinks: SocialLink[];

@@ -14,7 +14,7 @@ export default async function AboutPage() {
   const artist = await getArtistProfile();
 
   return (
-    <PageShell heading="About">
+    <PageShell>
       <AboutSection artist={artist} />
     </PageShell>
   );

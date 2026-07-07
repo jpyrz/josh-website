@@ -7,22 +7,47 @@ type AboutSectionProps = {
 };
 
 export function AboutSection({ artist }: AboutSectionProps) {
+  const details = artist.aboutDetails?.filter((detail) => detail.label && detail.value) || [];
+  const leadText = artist.statement || artist.bio;
+  const showBio = Boolean(artist.statement && artist.bio);
+
   return (
     <section className={styles.about}>
-      {artist.portrait && (
-        <Image
-          src={artist.portrait.src}
-          alt={artist.portrait.alt}
-          width={artist.portrait.width || 900}
-          height={artist.portrait.height || 1100}
-          className={styles.portrait}
-        />
-      )}
       <div className={styles.copy}>
-        <h2>{artist.name}</h2>
-        <p>{artist.bio}</p>
-        {artist.statement && <p>{artist.statement}</p>}
+        <p className={styles.kicker}>{artist.aboutKicker || "Artist Statement"}</p>
+        <h1>{artist.name}</h1>
+        <p className={styles.statement}>{leadText}</p>
+
+        {details.length > 0 && (
+          <dl className={styles.details}>
+            {details.map((detail) => (
+              <div key={`${detail.label}-${detail.value}`}>
+                <dt>{detail.label}</dt>
+                <dd>{detail.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+
+        {showBio && (
+          <div className={styles.bio}>
+            <h2>Bio</h2>
+            <p>{artist.bio}</p>
+          </div>
+        )}
       </div>
+
+      {artist.portrait && (
+        <figure className={styles.figure}>
+          <Image
+            src={artist.portrait.src}
+            alt={artist.portrait.alt}
+            width={artist.portrait.width || 900}
+            height={artist.portrait.height || 1100}
+            className={styles.portrait}
+          />
+        </figure>
+      )}
     </section>
   );
 }
