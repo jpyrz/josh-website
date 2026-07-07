@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { ContactForm } from "@/components/ContactForm";
+import { ContactSection } from "@/components/ContactSection";
 import { PageShell } from "@/components/PageShell";
-import { getArtistProfile } from "@/lib/sanity/queries";
+import { getArtistProfile, getContactPageSettings } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -11,15 +11,11 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function ContactPage() {
-  const artist = await getArtistProfile();
+  const [artist, settings] = await Promise.all([getArtistProfile(), getContactPageSettings()]);
 
   return (
-    <PageShell
-      heading="Contact"
-      intro={`For artwork inquiries, commissions, or studio questions, send ${artist.name} a note.`}
-      variant="centered"
-    >
-      <ContactForm />
+    <PageShell>
+      <ContactSection artist={artist} settings={settings} />
     </PageShell>
   );
 }

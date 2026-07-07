@@ -61,5 +61,17 @@ export type HomePageSettings = {
   headline?: string;
   intro?: string;
   secondaryLinkLabel?: string;
+  showHeroArtwork?: boolean;
+  heroArtwork?: Artwork;
+  heroArtworks?: Artwork[];
   showFeaturedArtwork?: boolean;
+};
+
+export type ContactPageSettings = {
+  heading?: string;
+  intro?: string;
+  image?: ArtworkImage;
+  showImage?: boolean;
+  showDirectEmail?: boolean;
+  emailLinkLabel?: string;
 };

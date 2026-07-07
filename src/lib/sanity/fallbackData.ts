@@ -1,4 +1,4 @@
-import type { ArtistProfile, Artwork, HomePageSettings, SiteSettings } from "@/lib/types";
+import type { ArtistProfile, Artwork, ContactPageSettings, HomePageSettings, SiteSettings } from "@/lib/types";
 
 export const fallbackArtwork: Artwork[] = [
   {
@@ -105,5 +105,14 @@ export const fallbackSiteSettings: SiteSettings = {
 export const fallbackHomePageSettings: HomePageSettings = {
   eyebrowText: "Artwork Portfolio",
   secondaryLinkLabel: "Read more",
+  showHeroArtwork: true,
   showFeaturedArtwork: true,
+};
+
+export const fallbackContactPageSettings: ContactPageSettings = {
+  heading: "Contact",
+  intro: "For commissions, available works, studio visits, or exhibition inquiries, send a note below.",
+  showImage: true,
+  showDirectEmail: true,
+  emailLinkLabel: "Email directly",
 };

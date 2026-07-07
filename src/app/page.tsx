@@ -20,6 +20,11 @@ export default async function Home() {
         headline={homePage.headline}
         intro={homePage.intro}
         secondaryLinkLabel={homePage.secondaryLinkLabel}
+        heroArtworks={
+          homePage.showHeroArtwork
+            ? homePage.heroArtworks || (homePage.heroArtwork ? [homePage.heroArtwork] : artwork.slice(0, 3))
+            : undefined
+        }
       />
       {homePage.showFeaturedArtwork && <FeaturedArtwork artwork={artwork} />}
     </PageShell>

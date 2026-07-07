@@ -1,4 +1,4 @@
-import { fallbackArtistProfile } from "@/lib/sanity/fallbackData";
+import { fallbackArtistProfile, fallbackArtwork } from "@/lib/sanity/fallbackData";
 import { ArtistIntro } from "./ArtistIntro";
 
 describe("ArtistIntro", () => {
@@ -25,5 +25,26 @@ describe("ArtistIntro", () => {
     cy.findByRole("heading", { name: "Studio archive" }).should("be.visible");
     cy.contains("A rotating selection of drawings and paintings.").should("be.visible");
     cy.findByRole("link", { name: "Read bio" }).should("have.attr", "href", "/about");
+  });
+
+  it("renders an optional hero artwork link", () => {
+    cy.mount(<ArtistIntro artist={fallbackArtistProfile} heroArtwork={fallbackArtwork[0]} />);
+
+    cy.findByRole("link", { name: `View ${fallbackArtwork[0].title}` }).should(
+      "have.attr",
+      "href",
+      `/artwork/${fallbackArtwork[0].slug}`,
+    );
+    cy.findByRole("img", { name: fallbackArtwork[0].image.alt }).should("be.visible");
+  });
+
+  it("renders an optional hero artwork group", () => {
+    cy.viewport(1200, 800);
+    cy.mount(<ArtistIntro artist={fallbackArtistProfile} heroArtworks={fallbackArtwork.slice(0, 3)} />);
+
+    fallbackArtwork.slice(0, 3).forEach((artwork) => {
+      cy.findByRole("link", { name: `View ${artwork.title}` }).should("have.attr", "href", `/artwork/${artwork.slug}`);
+      cy.findByRole("img", { name: artwork.image.alt }).should("be.visible");
+    });
   });
 });

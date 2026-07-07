@@ -15,7 +15,7 @@ export function FormField({ label, name, type = "text", required = false, multil
     <label className={styles.field} htmlFor={id}>
       <span>{label}</span>
       {multiline ? (
-        <textarea id={id} name={name} required={required} rows={7} />
+        <textarea id={id} name={name} required={required} rows={6} />
       ) : (
         <input id={id} name={name} type={type} required={required} />
       )}

@@ -1,8 +1,9 @@
-import type { ArtistProfile, Artwork, HomePageSettings, SiteSettings } from "@/lib/types";
+import type { ArtistProfile, Artwork, ContactPageSettings, HomePageSettings, SiteSettings } from "@/lib/types";
 import { sanityClient } from "./client";
 import {
   fallbackArtistProfile,
   fallbackArtwork,
+  fallbackContactPageSettings,
   fallbackHomePageSettings,
   fallbackSiteSettings,
 } from "./fallbackData";
@@ -35,6 +36,15 @@ type SanitySiteSettings = Omit<SiteSettings, "brandLogo"> & {
 type SanityArtistProfile = Omit<ArtistProfile, "socialLinks"> & {
   socialLinks?: ArtistProfile["socialLinks"] | null;
   portrait?: SanityImage;
+};
+
+type SanityHomePageSettings = Omit<HomePageSettings, "heroArtwork" | "heroArtworks"> & {
+  heroArtwork?: SanityArtwork | null;
+  heroArtworks?: SanityArtwork[] | null;
+};
+
+type SanityContactPageSettings = Omit<ContactPageSettings, "image"> & {
+  image?: SanityImage;
 };
 
 function normalizeSocialLinks(
@@ -251,19 +261,67 @@ export async function getSiteSettings(): Promise<SiteSettings> {
 }
 
 export async function getHomePageSettings(): Promise<HomePageSettings> {
-  const data = await fetchSanity<HomePageSettings | null>(`*[_type == "homePageSettings"][0]{
+  const data = await fetchSanity<SanityHomePageSettings | null>(`*[_type == "homePageSettings"][0]{
     eyebrowText,
     headline,
     intro,
     secondaryLinkLabel,
+    showHeroArtwork,
+    heroArtworks[]->${artworkProjection},
+    heroArtwork->${artworkProjection},
     showFeaturedArtwork
   }`);
 
-  return data
-    ? {
-        ...fallbackHomePageSettings,
-        ...data,
-        showFeaturedArtwork: data.showFeaturedArtwork ?? fallbackHomePageSettings.showFeaturedArtwork,
+  if (!data) {
+    return fallbackHomePageSettings;
+  }
+
+  const { heroArtwork, heroArtworks, ...settings } = data;
+  const mappedHeroArtworks = Array.isArray(heroArtworks)
+    ? heroArtworks.map(mapArtwork).filter((piece): piece is Artwork => Boolean(piece)).slice(0, 3)
+    : [];
+  const mappedHeroArtwork = heroArtwork ? mapArtwork(heroArtwork) || undefined : undefined;
+
+  return {
+    ...fallbackHomePageSettings,
+    ...settings,
+    heroArtwork: mappedHeroArtwork,
+    heroArtworks: mappedHeroArtworks.length ? mappedHeroArtworks : mappedHeroArtwork ? [mappedHeroArtwork] : undefined,
+    showHeroArtwork: settings.showHeroArtwork ?? fallbackHomePageSettings.showHeroArtwork,
+    showFeaturedArtwork: settings.showFeaturedArtwork ?? fallbackHomePageSettings.showFeaturedArtwork,
+  };
+}
+
+export async function getContactPageSettings(): Promise<ContactPageSettings> {
+  const data = await fetchSanity<SanityContactPageSettings | null>(`*[_type == "contactPageSettings"][0]{
+    heading,
+    intro,
+    image{
+      ...,
+      asset->{
+        _id,
+        metadata {
+          dimensions {
+            width,
+            height
+          }
+        }
       }
-    : fallbackHomePageSettings;
+    },
+    showImage,
+    showDirectEmail,
+    emailLinkLabel
+  }`);
+
+  if (!data) {
+    return fallbackContactPageSettings;
+  }
+
+  return {
+    ...fallbackContactPageSettings,
+    ...data,
+    image: mapImage(data.image, `${data.heading || fallbackContactPageSettings.heading} contact image`),
+    showImage: data.showImage ?? fallbackContactPageSettings.showImage,
+    showDirectEmail: data.showDirectEmail ?? fallbackContactPageSettings.showDirectEmail,
+  };
 }
