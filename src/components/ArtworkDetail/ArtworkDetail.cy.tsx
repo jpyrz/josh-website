@@ -24,7 +24,8 @@ describe("ArtworkDetail", () => {
     cy.findByRole("img", { name: fallbackArtwork[0].image.alt })
       .parent()
       .should("have.attr", "style")
-      .and("include", "196px");
+      .and("include", "--detail-image-max-width: 240px")
+      .and("include", "--detail-image-max-height: 240px");
   });
 
   it("marks the artwork image as not draggable", () => {
