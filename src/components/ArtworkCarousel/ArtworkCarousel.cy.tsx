@@ -26,6 +26,19 @@ describe("ArtworkCarousel", () => {
     cy.findByRole("img", { name: fallbackArtwork[1].image.alt }).should("be.visible");
   });
 
+  it("switches artwork with previous and next controls", () => {
+    cy.mount(<ArtworkCarousel artwork={fallbackArtwork.slice(0, 3)} />);
+
+    cy.findByRole("button", { name: "Show next artwork" }).click();
+    cy.findByRole("link", { name: `View ${fallbackArtwork[1].title}` }).should("be.visible");
+
+    cy.findByRole("button", { name: "Show previous artwork" }).click();
+    cy.findByRole("link", { name: `View ${fallbackArtwork[0].title}` }).should("be.visible");
+
+    cy.findByRole("button", { name: "Show previous artwork" }).click();
+    cy.findByRole("link", { name: `View ${fallbackArtwork[2].title}` }).should("be.visible");
+  });
+
   it("auto-rotates using the configured interval", () => {
     cy.clock();
     cy.mount(<ArtworkCarousel artwork={fallbackArtwork.slice(0, 2)} autoRotateIntervalMs={1500} />);

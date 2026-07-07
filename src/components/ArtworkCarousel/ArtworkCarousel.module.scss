@@ -56,11 +56,48 @@
   }
 }
 
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
 .dots {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.arrow {
+  appearance: none;
+  min-width: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  color: var(--color-accent-strong);
+  font-family: inherit;
+  font-size: 1.42rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+
+  span {
+    transform: translateY(-1px);
+  }
+}
+
+.arrow:hover,
+.arrow:focus-visible {
+  color: var(--color-ink);
+  transform: translateY(-1px);
 }
 
 .dot {
@@ -93,6 +130,7 @@
 @media (prefers-reduced-motion: reduce) {
   .slide,
   .image,
+  .arrow,
   .dot {
     transition: none;
   }
