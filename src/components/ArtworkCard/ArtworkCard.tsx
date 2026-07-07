@@ -15,13 +15,13 @@ type ArtworkCardProps = {
 export function ArtworkCard({ artwork, priority = false }: ArtworkCardProps) {
   const displayWidth = artwork.galleryDisplayWidth ?? artwork.displayWidth;
   const displayMaxHeight = artwork.galleryDisplayMaxHeight ?? artwork.displayMaxHeight;
+  const imageWidth = artwork.image.width || 900;
+  const imageHeight = artwork.image.height || 1100;
   const cardStyle: CSSProperties = {
-    width: displayWidth ? `${displayWidth}px` : "100%",
-    maxWidth: "100%",
-  };
-  const imageStyle: CSSProperties = {
-    maxHeight: displayMaxHeight ? `${displayMaxHeight}px` : undefined,
-  };
+    "--gallery-image-max-width": displayWidth ? `${displayWidth}px` : undefined,
+    "--gallery-image-max-height": displayMaxHeight ? `${displayMaxHeight}px` : undefined,
+    "--gallery-image-ratio": imageWidth / imageHeight,
+  } as CSSProperties;
   const blockImageSave = (event: SyntheticEvent) => {
     event.preventDefault();
   };
@@ -38,12 +38,11 @@ export function ArtworkCard({ artwork, priority = false }: ArtworkCardProps) {
         <Image
           src={artwork.image.src}
           alt={artwork.image.alt}
-          width={artwork.image.width || 900}
-          height={artwork.image.height || 1100}
+          width={imageWidth}
+          height={imageHeight}
           priority={priority}
           sizes="(min-width: 1180px) 360px, (min-width: 720px) 33vw, 100vw"
           className={styles.image}
-          style={imageStyle}
           draggable={false}
         />
       </Link>

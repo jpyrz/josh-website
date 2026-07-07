@@ -1,4 +1,11 @@
 .card {
+  --gallery-card-width: min(
+    100%,
+    var(--gallery-image-max-width, 100%),
+    calc(var(--gallery-image-max-height, 520px) * var(--gallery-image-ratio))
+  );
+
+  width: var(--gallery-card-width);
   min-width: 0;
   justify-self: center;
 }
@@ -14,12 +21,20 @@
 
 .image {
   width: 100%;
-  max-height: 520px;
   height: auto;
-  object-fit: contain;
   transition: transform 220ms ease;
   -webkit-user-drag: none;
   user-select: none;
+}
+
+@media (max-width: 820px) {
+  .card {
+    --gallery-card-width: min(
+      100%,
+      var(--gallery-image-max-width, 100%),
+      calc(var(--gallery-image-max-height, 520px) * var(--gallery-image-ratio))
+    );
+  }
 }
 
 .card:hover .image {

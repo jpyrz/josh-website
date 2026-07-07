@@ -25,14 +25,16 @@ describe("ArtworkCard", () => {
       />,
     );
 
-    cy.findByRole("article").should("have.attr", "style").and("include", "width: 240px");
-    cy.findByRole("img", { name: fallbackArtwork[0].image.alt }).should("have.attr", "style").and("include", "240px");
+    cy.findByRole("article")
+      .should("have.attr", "style")
+      .and("include", "--gallery-image-max-width: 240px")
+      .and("include", "--gallery-image-max-height: 240px");
   });
 
-  it("fills the grid column when gallery width is not customized", () => {
+  it("uses ratio-based card sizing when gallery width is not customized", () => {
     cy.mount(<ArtworkCard artwork={fallbackArtwork[0]} />);
 
-    cy.findByRole("article").should("have.attr", "style").and("include", "width: 100%");
+    cy.findByRole("article").should("have.attr", "style").and("include", "--gallery-image-ratio");
   });
 
   it("blocks the artwork image context menu", () => {
