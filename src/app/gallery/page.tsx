@@ -2,24 +2,28 @@ import type { Metadata } from "next";
 import { ArtworkGrid } from "@/components/ArtworkGrid";
 import { PageIntro } from "@/components/PageIntro";
 import { PageShell } from "@/components/PageShell";
-import { getAllArtwork } from "@/lib/sanity/queries";
+import { getAllArtwork, getGalleryPageSettings } from "@/lib/sanity/queries";
 
-export const metadata: Metadata = {
-  title: "Gallery",
-  description: "Browse selected artwork, paintings, studies, and recent pieces.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getGalleryPageSettings();
+
+  return {
+    title: settings.seoTitle || settings.heading || "Gallery",
+    description: settings.seoDescription || settings.intro || "Browse selected artwork, paintings, studies, and recent pieces.",
+  };
+}
 
 export const dynamic = "force-dynamic";
 
 export default async function GalleryPage() {
-  const artwork = await getAllArtwork();
+  const [artwork, settings] = await Promise.all([getAllArtwork(), getGalleryPageSettings()]);
 
   return (
     <PageShell>
       <PageIntro
-        kicker="Selected Work"
-        heading="Gallery"
-        intro="A quiet index of selected pieces, studies, and available work."
+        kicker={settings.kicker || "Selected Work"}
+        heading={settings.heading || "Gallery"}
+        intro={settings.intro}
       />
       <ArtworkGrid artwork={artwork} />
     </PageShell>

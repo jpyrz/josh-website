@@ -12,8 +12,8 @@ type ArtworkDetailProps = {
 };
 
 export function ArtworkDetail({ artwork }: ArtworkDetailProps) {
-  const displayWidth = artwork.detailDisplayWidth ?? artwork.displayWidth;
-  const displayMaxHeight = artwork.detailDisplayMaxHeight ?? artwork.displayMaxHeight;
+  const displayWidth = artwork.detailDisplayWidth;
+  const displayMaxHeight = artwork.detailDisplayMaxHeight;
   const imageWidth = artwork.image.width || 900;
   const imageHeight = artwork.image.height || 1100;
   const frameStyle: CSSProperties = {

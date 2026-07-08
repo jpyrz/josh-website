@@ -13,8 +13,8 @@ type ArtworkCardProps = {
 };
 
 export function ArtworkCard({ artwork, priority = false }: ArtworkCardProps) {
-  const displayWidth = artwork.galleryDisplayWidth ?? artwork.displayWidth;
-  const displayMaxHeight = artwork.galleryDisplayMaxHeight ?? artwork.displayMaxHeight;
+  const displayWidth = artwork.galleryDisplayWidth;
+  const displayMaxHeight = artwork.galleryDisplayMaxHeight;
   const imageWidth = artwork.image.width || 900;
   const imageHeight = artwork.image.height || 1100;
   const cardStyle: CSSProperties = {

@@ -1,9 +1,17 @@
-import type { ArtistProfile, Artwork, ContactPageSettings, HomePageSettings, SiteSettings } from "@/lib/types";
+import type {
+  ArtistProfile,
+  Artwork,
+  ContactPageSettings,
+  GalleryPageSettings,
+  HomePageSettings,
+  SiteSettings,
+} from "@/lib/types";
 import { sanityClient } from "./client";
 import {
   fallbackArtistProfile,
   fallbackArtwork,
   fallbackContactPageSettings,
+  fallbackGalleryPageSettings,
   fallbackHomePageSettings,
   fallbackSiteSettings,
 } from "./fallbackData";
@@ -33,23 +41,15 @@ type SanitySiteSettings = Omit<SiteSettings, "brandLogo"> & {
   brandLogo?: SanityImage;
 };
 
-type SanityArtistProfile = Omit<ArtistProfile, "socialLinks"> & {
-  socialLinks?: ArtistProfile["socialLinks"] | null;
+type SanityArtistProfile = Omit<ArtistProfile, "portrait"> & {
   portrait?: SanityImage;
 };
 
-type SanityHomePageSettings = Omit<HomePageSettings, "heroArtwork" | "heroArtworks"> & {
-  heroArtwork?: SanityArtwork | null;
+type SanityHomePageSettings = Omit<HomePageSettings, "heroArtworks"> & {
   heroArtworks?: SanityArtwork[] | null;
 };
 
-type SanityContactPageSettings = Omit<ContactPageSettings, "image"> & {
-  image?: SanityImage;
-};
-
-function normalizeSocialLinks(
-  links: ArtistProfile["socialLinks"] | SiteSettings["socialLinks"] | null | undefined,
-) {
+function normalizeSocialLinks(links: SiteSettings["socialLinks"] | null | undefined) {
   return Array.isArray(links) ? links.filter((link) => link?.label && link?.href) : [];
 }
 
@@ -77,8 +77,6 @@ const artworkProjection = `{
   description,
   featured,
   sortOrder,
-  displayWidth,
-  displayMaxHeight,
   galleryDisplayWidth,
   galleryDisplayMaxHeight,
   detailDisplayWidth,
@@ -114,8 +112,6 @@ function mapArtwork(piece: SanityArtwork): Artwork | null {
     description: piece.description,
     featured: piece.featured,
     sortOrder: piece.sortOrder,
-    displayWidth: piece.displayWidth,
-    displayMaxHeight: piece.displayMaxHeight,
     galleryDisplayWidth: piece.galleryDisplayWidth,
     galleryDisplayMaxHeight: piece.galleryDisplayMaxHeight,
     detailDisplayWidth: piece.detailDisplayWidth,
@@ -214,9 +210,7 @@ export async function getArtistProfile(): Promise<ArtistProfile> {
           }
         }
       }
-    },
-    email,
-    socialLinks
+    }
   }`);
 
   return data?.name
@@ -224,7 +218,6 @@ export async function getArtistProfile(): Promise<ArtistProfile> {
         ...fallbackArtistProfile,
         ...data,
         portrait: mapImage(data.portrait, `${data.name || fallbackArtistProfile.name} portrait`),
-        socialLinks: normalizeSocialLinks(data.socialLinks),
       }
     : fallbackArtistProfile;
 }
@@ -246,7 +239,6 @@ export async function getSiteSettings(): Promise<SiteSettings> {
         }
       }
     },
-    homepageKicker,
     navLabels,
     socialLinks
   }`);
@@ -271,9 +263,10 @@ export async function getHomePageSettings(): Promise<HomePageSettings> {
     headline,
     intro,
     secondaryLinkLabel,
+    featuredHeading,
+    featuredLinkLabel,
     showHeroArtwork,
     heroArtworks[]->${artworkProjection},
-    heroArtwork->${artworkProjection},
     heroCarouselIntervalSeconds,
     showFeaturedArtwork
   }`);
@@ -282,43 +275,47 @@ export async function getHomePageSettings(): Promise<HomePageSettings> {
     return fallbackHomePageSettings;
   }
 
-  const { heroArtwork, heroArtworks, ...settings } = data;
+  const { heroArtworks, ...settings } = data;
   const mappedHeroArtworks = Array.isArray(heroArtworks)
     ? heroArtworks.map(mapArtwork).filter((piece): piece is Artwork => Boolean(piece))
     : [];
-  const mappedHeroArtwork = heroArtwork ? mapArtwork(heroArtwork) || undefined : undefined;
 
   return {
     ...fallbackHomePageSettings,
     ...settings,
-    heroArtwork: mappedHeroArtwork,
-    heroArtworks: mappedHeroArtworks.length ? mappedHeroArtworks : mappedHeroArtwork ? [mappedHeroArtwork] : undefined,
+    heroArtworks: mappedHeroArtworks.length ? mappedHeroArtworks : undefined,
     heroCarouselIntervalSeconds:
       settings.heroCarouselIntervalSeconds ?? fallbackHomePageSettings.heroCarouselIntervalSeconds,
+    featuredHeading: settings.featuredHeading || fallbackHomePageSettings.featuredHeading,
+    featuredLinkLabel: settings.featuredLinkLabel || fallbackHomePageSettings.featuredLinkLabel,
     showHeroArtwork: settings.showHeroArtwork ?? fallbackHomePageSettings.showHeroArtwork,
     showFeaturedArtwork: settings.showFeaturedArtwork ?? fallbackHomePageSettings.showFeaturedArtwork,
   };
 }
 
-export async function getContactPageSettings(): Promise<ContactPageSettings> {
-  const data = await fetchSanity<SanityContactPageSettings | null>(`*[_type == "contactPageSettings"][0]{
+export async function getGalleryPageSettings(): Promise<GalleryPageSettings> {
+  const data = await fetchSanity<GalleryPageSettings | null>(`*[_type == "galleryPageSettings"][0]{
+    kicker,
     heading,
     intro,
-    image{
-      ...,
-      asset->{
-        _id,
-        metadata {
-          dimensions {
-            width,
-            height
-          }
-        }
-      }
-    },
-    showImage,
-    showDirectEmail,
-    emailLinkLabel
+    seoTitle,
+    seoDescription
+  }`);
+
+  if (!data) {
+    return fallbackGalleryPageSettings;
+  }
+
+  return {
+    ...fallbackGalleryPageSettings,
+    ...data,
+  };
+}
+
+export async function getContactPageSettings(): Promise<ContactPageSettings> {
+  const data = await fetchSanity<ContactPageSettings | null>(`*[_type == "contactPageSettings"][0]{
+    heading,
+    intro
   }`);
 
   if (!data) {
@@ -328,8 +325,5 @@ export async function getContactPageSettings(): Promise<ContactPageSettings> {
   return {
     ...fallbackContactPageSettings,
     ...data,
-    image: mapImage(data.image, `${data.heading || fallbackContactPageSettings.heading} contact image`),
-    showImage: data.showImage ?? fallbackContactPageSettings.showImage,
-    showDirectEmail: data.showDirectEmail ?? fallbackContactPageSettings.showDirectEmail,
   };
 }

@@ -18,8 +18,6 @@ export type Artwork = {
   description?: string;
   featured?: boolean;
   sortOrder?: number;
-  displayWidth?: number;
-  displayMaxHeight?: number;
   galleryDisplayWidth?: number;
   galleryDisplayMaxHeight?: number;
   detailDisplayWidth?: number;
@@ -42,8 +40,6 @@ export type ArtistProfile = {
     value: string;
   }[];
   portrait?: ArtworkImage;
-  email?: string;
-  socialLinks: SocialLink[];
 };
 
 export type SiteSettings = {
@@ -51,7 +47,6 @@ export type SiteSettings = {
   description: string;
   artistName: string;
   brandLogo?: ArtworkImage;
-  homepageKicker?: string;
   navLabels?: {
     home?: string;
     gallery?: string;
@@ -66,18 +61,23 @@ export type HomePageSettings = {
   headline?: string;
   intro?: string;
   secondaryLinkLabel?: string;
+  featuredHeading?: string;
+  featuredLinkLabel?: string;
   showHeroArtwork?: boolean;
-  heroArtwork?: Artwork;
   heroArtworks?: Artwork[];
   heroCarouselIntervalSeconds?: number;
   showFeaturedArtwork?: boolean;
 };
 
+export type GalleryPageSettings = {
+  kicker?: string;
+  heading?: string;
+  intro?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+};
+
 export type ContactPageSettings = {
   heading?: string;
   intro?: string;
-  image?: ArtworkImage;
-  showImage?: boolean;
-  showDirectEmail?: boolean;
-  emailLinkLabel?: string;
 };

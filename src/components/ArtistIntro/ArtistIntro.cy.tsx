@@ -28,7 +28,7 @@ describe("ArtistIntro", () => {
   });
 
   it("renders an optional hero artwork link", () => {
-    cy.mount(<ArtistIntro artist={fallbackArtistProfile} heroArtwork={fallbackArtwork[0]} />);
+    cy.mount(<ArtistIntro artist={fallbackArtistProfile} heroArtworks={[fallbackArtwork[0]]} />);
 
     cy.findByRole("link", { name: `View ${fallbackArtwork[0].title}` }).should(
       "have.attr",

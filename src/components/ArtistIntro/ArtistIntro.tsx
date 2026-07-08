@@ -9,7 +9,6 @@ type ArtistIntroProps = {
   headline?: string;
   intro?: string;
   secondaryLinkLabel?: string;
-  heroArtwork?: Artwork;
   heroArtworks?: Artwork[];
   heroCarouselIntervalSeconds?: number;
 };
@@ -20,13 +19,12 @@ export function ArtistIntro({
   headline,
   intro,
   secondaryLinkLabel = "Read more",
-  heroArtwork,
   heroArtworks,
   heroCarouselIntervalSeconds = 6,
 }: ArtistIntroProps) {
   const introText = intro || artist.statement || artist.bio;
   const readMoreLabel = secondaryLinkLabel.replace(/\s*(?:->|→)\s*$/, "");
-  const artworks = heroArtworks?.length ? heroArtworks : heroArtwork ? [heroArtwork] : [];
+  const artworks = heroArtworks?.length ? heroArtworks : [];
 
   return (
     <section className={`${styles.intro} ${artworks.length ? styles.withArtwork : ""}`}>

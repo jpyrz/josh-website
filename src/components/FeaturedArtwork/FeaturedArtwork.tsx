@@ -5,15 +5,17 @@ import styles from "./FeaturedArtwork.module.scss";
 
 type FeaturedArtworkProps = {
   artwork: Artwork[];
+  heading?: string;
+  linkLabel?: string;
 };
 
-export function FeaturedArtwork({ artwork }: FeaturedArtworkProps) {
+export function FeaturedArtwork({ artwork, heading = "Featured Work", linkLabel = "View gallery" }: FeaturedArtworkProps) {
   return (
     <section className={styles.section}>
       <div className={styles.heading}>
-        <h2>Featured Work</h2>
+        <h2>{heading}</h2>
         <Link href="/gallery">
-          View gallery
+          {linkLabel}
           <span className={styles.arrow} aria-hidden="true" />
         </Link>
       </div>

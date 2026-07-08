@@ -22,12 +22,18 @@ export default async function Home() {
         secondaryLinkLabel={homePage.secondaryLinkLabel}
         heroArtworks={
           homePage.showHeroArtwork
-            ? homePage.heroArtworks || (homePage.heroArtwork ? [homePage.heroArtwork] : artwork.slice(0, 3))
+            ? homePage.heroArtworks || artwork.slice(0, 3)
             : undefined
         }
         heroCarouselIntervalSeconds={homePage.heroCarouselIntervalSeconds}
       />
-      {homePage.showFeaturedArtwork && <FeaturedArtwork artwork={artwork} />}
+      {homePage.showFeaturedArtwork && (
+        <FeaturedArtwork
+          artwork={artwork}
+          heading={homePage.featuredHeading}
+          linkLabel={homePage.featuredLinkLabel}
+        />
+      )}
     </PageShell>
   );
 }

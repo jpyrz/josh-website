@@ -1,4 +1,11 @@
-import type { ArtistProfile, Artwork, ContactPageSettings, HomePageSettings, SiteSettings } from "@/lib/types";
+import type {
+  ArtistProfile,
+  Artwork,
+  ContactPageSettings,
+  GalleryPageSettings,
+  HomePageSettings,
+  SiteSettings,
+} from "@/lib/types";
 
 export const fallbackArtwork: Artwork[] = [
   {
@@ -90,15 +97,12 @@ export const fallbackArtistProfile: ArtistProfile = {
     width: 900,
     height: 1100,
   },
-  email: "studio@example.com",
-  socialLinks: [],
 };
 
 export const fallbackSiteSettings: SiteSettings = {
   title: "Josh Artwork",
   description: "A portfolio of artwork, paintings, studies, and available pieces.",
   artistName: "Josh",
-  homepageKicker: "Artwork Portfolio",
   navLabels: {
     home: "Home",
     gallery: "Gallery",
@@ -111,14 +115,22 @@ export const fallbackSiteSettings: SiteSettings = {
 export const fallbackHomePageSettings: HomePageSettings = {
   eyebrowText: "Artwork Portfolio",
   secondaryLinkLabel: "Read more",
+  featuredHeading: "Featured Work",
+  featuredLinkLabel: "View gallery",
   showHeroArtwork: true,
   heroCarouselIntervalSeconds: 6,
   showFeaturedArtwork: true,
 };
 
+export const fallbackGalleryPageSettings: GalleryPageSettings = {
+  kicker: "Selected Work",
+  heading: "Gallery",
+  intro: "A quiet index of selected pieces, studies, and available work.",
+  seoTitle: "Gallery",
+  seoDescription: "Browse selected artwork, paintings, studies, and recent pieces.",
+};
+
 export const fallbackContactPageSettings: ContactPageSettings = {
   heading: "Contact",
   intro: "For commissions, available works, studio visits, or exhibition inquiries, send a note below.",
-  showImage: false,
-  showDirectEmail: false,
 };

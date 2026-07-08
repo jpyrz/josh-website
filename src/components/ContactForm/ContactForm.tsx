@@ -45,6 +45,7 @@ export function ContactForm() {
   return (
     <form className={styles.form} name="contact" method="POST" data-netlify="true" onSubmit={handleSubmit}>
       <input type="hidden" name="form-name" value="contact" />
+      <input type="hidden" name="subject" value="New Josh Eco Art inquiry" />
       <p className={styles.honeypot} aria-hidden="true">
         <label>
           Leave this field empty
