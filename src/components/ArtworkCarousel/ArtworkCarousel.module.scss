@@ -25,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   color: inherit;
   opacity: 0;
   pointer-events: none;
@@ -55,7 +56,7 @@
 .activeSlide:focus-visible {
   .image {
     border-color: rgba(32, 29, 24, 0.28);
-    transform: translateY(-1px);
+    transform: scale(1.015);
   }
 }
 
