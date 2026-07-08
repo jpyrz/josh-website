@@ -26,6 +26,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border: 1px solid rgba(32, 29, 24, 0.16);
+  background: var(--color-surface);
   color: inherit;
   opacity: 0;
   pointer-events: none;
@@ -45,17 +47,12 @@
   display: block;
   width: 100%;
   height: auto;
-  border: 1px solid rgba(32, 29, 24, 0.16);
-  background: var(--color-surface);
-  transition:
-    border-color 180ms ease,
-    transform 180ms ease;
+  transition: transform 180ms ease;
 }
 
 .activeSlide:hover,
 .activeSlide:focus-visible {
   .image {
-    border-color: rgba(32, 29, 24, 0.28);
     transform: scale(1.015);
   }
 }
