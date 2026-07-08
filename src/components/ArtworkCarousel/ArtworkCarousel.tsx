@@ -83,7 +83,7 @@ export function ArtworkCarousel({ artwork, autoRotateIntervalMs = 6000, classNam
       {showControls && (
         <div className={styles.controls} aria-label="Choose featured artwork">
           <button type="button" className={styles.arrow} aria-label="Show previous artwork" onClick={showPreviousArtwork}>
-            <span aria-hidden="true">&lt;</span>
+            <span className={styles.previousIcon} aria-hidden="true" />
           </button>
 
           <div className={styles.dots}>
@@ -100,7 +100,7 @@ export function ArtworkCarousel({ artwork, autoRotateIntervalMs = 6000, classNam
           </div>
 
           <button type="button" className={styles.arrow} aria-label="Show next artwork" onClick={showNextArtwork}>
-            <span aria-hidden="true">&gt;</span>
+            <span className={styles.nextIcon} aria-hidden="true" />
           </button>
         </div>
       )}

@@ -72,7 +72,7 @@
 
 .arrow {
   appearance: none;
-  min-width: 34px;
+  width: 34px;
   height: 34px;
   padding: 0;
   display: inline-flex;
@@ -80,24 +80,32 @@
   justify-content: center;
   border: 0;
   background: transparent;
-  color: var(--color-accent-strong);
-  font-family: inherit;
-  font-size: 1.42rem;
-  line-height: 1;
   cursor: pointer;
   transition:
-    color 160ms ease,
+    opacity 160ms ease,
     transform 160ms ease;
-
-  span {
-    transform: translateY(-1px);
-  }
 }
 
 .arrow:hover,
 .arrow:focus-visible {
-  color: var(--color-ink);
-  transform: translateY(-1px);
+  opacity: 0.72;
+}
+
+.previousIcon,
+.nextIcon {
+  width: 14px;
+  height: 14px;
+  display: block;
+  border-top: 2px solid rgba(80, 84, 82, 0.52);
+  border-right: 2px solid rgba(80, 84, 82, 0.52);
+}
+
+.previousIcon {
+  transform: rotate(-135deg) translate(-1px, -1px);
+}
+
+.nextIcon {
+  transform: rotate(45deg) translate(-1px, 1px);
 }
 
 .dot {
