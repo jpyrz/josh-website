@@ -2,6 +2,7 @@
   width: min(100% - 32px, var(--max-page-width));
   margin: 0 auto;
   padding: 56px 0 80px;
+  animation: pageFadeIn 460ms ease-out both;
 }
 
 .home {
@@ -14,6 +15,24 @@
   .header {
     margin-right: auto;
     margin-left: auto;
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shell {
+    animation: none;
   }
 }
 
