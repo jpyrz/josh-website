@@ -34,6 +34,7 @@ export type ArtistProfile = {
   name: string;
   bio: string;
   statement?: string;
+  statementParagraphs?: string[];
   aboutKicker?: string;
   aboutDetails?: {
     label: string;
@@ -60,6 +61,7 @@ export type HomePageSettings = {
   eyebrowText?: string;
   headline?: string;
   intro?: string;
+  introParagraphs?: string[];
   secondaryLinkLabel?: string;
   featuredHeading?: string;
   featuredLinkLabel?: string;

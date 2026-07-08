@@ -27,6 +27,21 @@ describe("ArtistIntro", () => {
     cy.findByRole("link", { name: "Read bio" }).should("have.attr", "href", "/about");
   });
 
+  it("renders optional intro paragraph sections", () => {
+    cy.mount(
+      <ArtistIntro
+        artist={fallbackArtistProfile}
+        intro="This should be replaced by paragraph sections."
+        introParagraphs={["First homepage paragraph.", "Second homepage paragraph."]}
+      />,
+    );
+
+    cy.contains("First homepage paragraph.").should("be.visible");
+    cy.contains("Second homepage paragraph.").should("be.visible");
+    cy.contains("This should be replaced by paragraph sections.").should("not.exist");
+    cy.findByRole("link", { name: "Read more" }).should("have.attr", "href", "/about");
+  });
+
   it("renders an optional hero artwork link", () => {
     cy.mount(<ArtistIntro artist={fallbackArtistProfile} heroArtworks={[fallbackArtwork[0]]} />);
 

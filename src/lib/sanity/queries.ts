@@ -53,6 +53,10 @@ function normalizeSocialLinks(links: SiteSettings["socialLinks"] | null | undefi
   return Array.isArray(links) ? links.filter((link) => link?.label && link?.href) : [];
 }
 
+function normalizeParagraphs(paragraphs: string[] | null | undefined) {
+  return Array.isArray(paragraphs) ? paragraphs.map((paragraph) => paragraph.trim()).filter(Boolean) : undefined;
+}
+
 const artworkProjection = `{
   _id,
   title,
@@ -194,6 +198,7 @@ export async function getArtistProfile(): Promise<ArtistProfile> {
     name,
     bio,
     statement,
+    statementParagraphs,
     aboutKicker,
     aboutDetails[]{
       label,
@@ -217,6 +222,7 @@ export async function getArtistProfile(): Promise<ArtistProfile> {
     ? {
         ...fallbackArtistProfile,
         ...data,
+        statementParagraphs: normalizeParagraphs(data.statementParagraphs),
         portrait: mapImage(data.portrait, `${data.name || fallbackArtistProfile.name} portrait`),
       }
     : fallbackArtistProfile;
@@ -262,6 +268,7 @@ export async function getHomePageSettings(): Promise<HomePageSettings> {
     eyebrowText,
     headline,
     intro,
+    introParagraphs,
     secondaryLinkLabel,
     featuredHeading,
     featuredLinkLabel,
@@ -283,6 +290,7 @@ export async function getHomePageSettings(): Promise<HomePageSettings> {
   return {
     ...fallbackHomePageSettings,
     ...settings,
+    introParagraphs: normalizeParagraphs(settings.introParagraphs),
     heroArtworks: mappedHeroArtworks.length ? mappedHeroArtworks : undefined,
     heroCarouselIntervalSeconds:
       settings.heroCarouselIntervalSeconds ?? fallbackHomePageSettings.heroCarouselIntervalSeconds,

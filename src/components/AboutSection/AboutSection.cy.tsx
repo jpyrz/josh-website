@@ -18,4 +18,20 @@ describe("AboutSection", () => {
       cy.contains(detail.value).should("be.visible");
     });
   });
+
+  it("renders optional artist statement paragraph sections", () => {
+    cy.mount(
+      <AboutSection
+        artist={{
+          ...fallbackArtistProfile,
+          statement: "This should be replaced by paragraph sections.",
+          statementParagraphs: ["First statement paragraph.", "Second statement paragraph."],
+        }}
+      />,
+    );
+
+    cy.contains("First statement paragraph.").should("be.visible");
+    cy.contains("Second statement paragraph.").should("be.visible");
+    cy.contains("This should be replaced by paragraph sections.").should("not.exist");
+  });
 });

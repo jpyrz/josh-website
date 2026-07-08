@@ -19,12 +19,9 @@ export default async function Home() {
         kicker={homePage.eyebrowText}
         headline={homePage.headline}
         intro={homePage.intro}
+        introParagraphs={homePage.introParagraphs}
         secondaryLinkLabel={homePage.secondaryLinkLabel}
-        heroArtworks={
-          homePage.showHeroArtwork
-            ? homePage.heroArtworks || artwork.slice(0, 3)
-            : undefined
-        }
+        heroArtworks={homePage.showHeroArtwork ? homePage.heroArtworks || artwork.slice(0, 3) : undefined}
         heroCarouselIntervalSeconds={homePage.heroCarouselIntervalSeconds}
       />
       {homePage.showFeaturedArtwork && (

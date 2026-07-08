@@ -9,6 +9,7 @@ type AboutSectionProps = {
 export function AboutSection({ artist }: AboutSectionProps) {
   const details = artist.aboutDetails?.filter((detail) => detail.label && detail.value) || [];
   const leadText = artist.statement || artist.bio;
+  const statementParagraphs = artist.statementParagraphs?.length ? artist.statementParagraphs : [leadText];
   const showBio = Boolean(artist.statement && artist.bio);
 
   return (
@@ -16,7 +17,11 @@ export function AboutSection({ artist }: AboutSectionProps) {
       <div className={styles.copy}>
         <p className={styles.kicker}>{artist.aboutKicker || "Artist Statement"}</p>
         <h1>{artist.name}</h1>
-        <p className={styles.statement}>{leadText}</p>
+        <div className={styles.statement}>
+          {statementParagraphs.map((paragraph, index) => (
+            <p key={`${paragraph}-${index}`}>{paragraph}</p>
+          ))}
+        </div>
 
         {details.length > 0 && (
           <dl className={styles.details}>

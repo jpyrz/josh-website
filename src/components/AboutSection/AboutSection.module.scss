@@ -29,9 +29,15 @@
 .statement {
   max-width: 700px;
   margin: 30px 0 0;
+  display: grid;
+  gap: 18px;
   color: var(--color-ink);
   font-size: clamp(1.24rem, 2vw, 1.55rem);
   line-height: 1.62;
+
+  p {
+    margin: 0;
+  }
 }
 
 .details {

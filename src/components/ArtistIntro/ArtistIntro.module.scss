@@ -25,9 +25,15 @@
     letter-spacing: 0;
   }
 
-  p:not(.kicker) {
+  .paragraphs {
     max-width: 360px;
     margin: 28px 0 0;
+    display: grid;
+    gap: 16px;
+  }
+
+  .paragraphs p {
+    margin: 0;
     color: var(--color-muted);
     font-size: 1.04rem;
     line-height: 1.75;
@@ -78,8 +84,11 @@
   .copy {
     max-width: 860px;
 
-    p:not(.kicker) {
+    .paragraphs {
       max-width: 680px;
+    }
+
+    .paragraphs p {
       font-size: 1.12rem;
     }
   }

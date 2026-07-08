@@ -34,6 +34,14 @@ export const artistProfile = defineType({
       group: "about",
     }),
     defineField({
+      name: "statementParagraphs",
+      title: "Artist statement paragraph sections",
+      type: "array",
+      of: [{ type: "text", rows: 4 }],
+      description: "Optional. Add multiple paragraphs when the About page statement needs line breaks. If set, these replace the single artist statement above.",
+      group: "about",
+    }),
+    defineField({
       name: "aboutKicker",
       title: "About page kicker",
       type: "string",

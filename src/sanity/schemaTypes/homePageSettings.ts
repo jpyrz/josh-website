@@ -34,6 +34,14 @@ export const homePageSettings = defineType({
       group: "intro",
     }),
     defineField({
+      name: "introParagraphs",
+      title: "Intro paragraph sections",
+      type: "array",
+      of: [{ type: "text", rows: 4 }],
+      description: "Optional. Add multiple paragraphs when the homepage intro needs line breaks. If set, these replace the single intro paragraph above.",
+      group: "intro",
+    }),
+    defineField({
       name: "secondaryLinkLabel",
       title: "Read more link label",
       type: "string",
