@@ -18,7 +18,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(100%, calc(var(--carousel-stage-height) * var(--carousel-image-ratio)));
+  width: min(
+    100%,
+    calc(var(--carousel-stage-height) * var(--carousel-image-ratio))
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,7 +63,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .dots {
@@ -91,21 +94,19 @@
   opacity: 0.72;
 }
 
-.previousIcon,
-.nextIcon {
-  width: 14px;
-  height: 14px;
+.arrowIcon {
+  width: 26px;
+  height: 26px;
   display: block;
-  border-top: 2px solid rgba(80, 84, 82, 0.52);
-  border-right: 2px solid rgba(80, 84, 82, 0.52);
-}
+  overflow: visible;
 
-.previousIcon {
-  transform: rotate(-135deg) translate(-1px, -1px);
-}
-
-.nextIcon {
-  transform: rotate(45deg) translate(-1px, 1px);
+  path {
+    fill: none;
+    stroke: rgba(80, 84, 82, 0.52);
+    stroke-width: 1.2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
 }
 
 .dot {

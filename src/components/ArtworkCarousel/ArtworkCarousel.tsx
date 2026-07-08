@@ -83,7 +83,9 @@ export function ArtworkCarousel({ artwork, autoRotateIntervalMs = 6000, classNam
       {showControls && (
         <div className={styles.controls} aria-label="Choose featured artwork">
           <button type="button" className={styles.arrow} aria-label="Show previous artwork" onClick={showPreviousArtwork}>
-            <span className={styles.previousIcon} aria-hidden="true" />
+            <svg className={styles.arrowIcon} viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M10 3L5 8l5 5" />
+            </svg>
           </button>
 
           <div className={styles.dots}>
@@ -100,7 +102,9 @@ export function ArtworkCarousel({ artwork, autoRotateIntervalMs = 6000, classNam
           </div>
 
           <button type="button" className={styles.arrow} aria-label="Show next artwork" onClick={showNextArtwork}>
-            <span className={styles.nextIcon} aria-hidden="true" />
+            <svg className={styles.arrowIcon} viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+              <path d="M6 3l5 5-5 5" />
+            </svg>
           </button>
         </div>
       )}
