@@ -16,38 +16,59 @@ type ArtworkCarouselProps = {
 
 export function ArtworkCarousel({ artwork, autoRotateIntervalMs = 6000, className, priority = false }: ArtworkCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [rotationVersion, setRotationVersion] = useState(0);
   const safeCurrentIndex = currentIndex <= artwork.length - 1 ? currentIndex : 0;
   const showControls = artwork.length > 1;
 
+  function resetAutoRotateTimer() {
+    setRotationVersion((version) => version + 1);
+  }
+
   function showPreviousArtwork() {
     setCurrentIndex((index) => (index - 1 + artwork.length) % artwork.length);
+    resetAutoRotateTimer();
   }
 
   function showNextArtwork() {
     setCurrentIndex((index) => (index + 1) % artwork.length);
+    resetAutoRotateTimer();
+  }
+
+  function showArtwork(index: number) {
+    setCurrentIndex(index);
+    resetAutoRotateTimer();
   }
 
   useEffect(() => {
     const shouldAutoRotate = artwork.length > 1 && autoRotateIntervalMs > 0;
 
-    if (!shouldAutoRotate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (isPaused || !shouldAutoRotate || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
-    const intervalId = window.setInterval(() => {
+    const timeoutId = window.setTimeout(() => {
       setCurrentIndex((index) => (index + 1) % artwork.length);
     }, autoRotateIntervalMs);
 
-    return () => window.clearInterval(intervalId);
-  }, [artwork.length, autoRotateIntervalMs]);
+    return () => window.clearTimeout(timeoutId);
+  }, [artwork.length, autoRotateIntervalMs, currentIndex, isPaused, rotationVersion]);
 
   if (!artwork.length) {
     return null;
   }
 
   return (
-    <div className={`${styles.carousel} ${className || ""}`} aria-label="Featured artwork carousel">
-      <div className={styles.stage}>
+    <div
+      className={`${styles.carousel} ${className || ""}`}
+      aria-label="Featured artwork carousel"
+    >
+      <div
+        className={styles.stage}
+        aria-label="Featured artwork slides"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         {artwork.map((piece, index) => {
           const isActive = index === safeCurrentIndex;
           const imageWidth = piece.image.width || 900;
@@ -96,7 +117,7 @@ export function ArtworkCarousel({ artwork, autoRotateIntervalMs = 6000, classNam
                 className={`${styles.dot} ${index === safeCurrentIndex ? styles.activeDot : ""}`}
                 aria-label={`Show ${piece.title}`}
                 aria-current={index === safeCurrentIndex ? "true" : undefined}
-                onClick={() => setCurrentIndex(index)}
+                onClick={() => showArtwork(index)}
               />
             ))}
           </div>

@@ -48,6 +48,34 @@ describe("ArtworkCarousel", () => {
     cy.findByRole("link", { name: `View ${fallbackArtwork[1].title}` }).should("be.visible");
   });
 
+  it("resets the auto-rotate timer after manual navigation", () => {
+    cy.clock();
+    cy.mount(<ArtworkCarousel artwork={fallbackArtwork.slice(0, 2)} autoRotateIntervalMs={10000} />);
+
+    cy.tick(8000);
+    cy.findByRole("button", { name: "Show next artwork" }).click();
+    cy.findByRole("link", { name: `View ${fallbackArtwork[1].title}` }).should("be.visible");
+
+    cy.tick(1999);
+    cy.findByRole("link", { name: `View ${fallbackArtwork[1].title}` }).should("be.visible");
+
+    cy.tick(8001);
+    cy.findByRole("link", { name: `View ${fallbackArtwork[0].title}` }).should("be.visible");
+  });
+
+  it("pauses auto-rotation while hovered", () => {
+    cy.clock();
+    cy.mount(<ArtworkCarousel artwork={fallbackArtwork.slice(0, 2)} autoRotateIntervalMs={1500} />);
+
+    cy.findByLabelText("Featured artwork slides").trigger("mouseenter");
+    cy.tick(2500);
+    cy.findByRole("link", { name: `View ${fallbackArtwork[0].title}` }).should("be.visible");
+
+    cy.findByLabelText("Featured artwork slides").trigger("mouseout");
+    cy.tick(1500);
+    cy.findByRole("link", { name: `View ${fallbackArtwork[1].title}` }).should("be.visible");
+  });
+
   it("omits dot controls for a single artwork", () => {
     cy.mount(<ArtworkCarousel artwork={fallbackArtwork.slice(0, 1)} />);
 
